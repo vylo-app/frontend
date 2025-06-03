@@ -23,6 +23,7 @@ export default defineConfig([
     },
     rules: {
       // TODO: Add rules only here @kusainovv
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ]);

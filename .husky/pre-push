@@ -1,0 +1,7 @@
+mkdir -p .husky
+echo '#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔥 Husky Pre-Push is working"
+
+pnpm check

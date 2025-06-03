@@ -1,54 +1,41 @@
-# React + TypeScript + Vite
+## 🧼 Code Quality (ESLint + Prettier + Husky)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project uses pre-commit hooks to enforce code quality.
 
-Currently, two official plugins are available:
+### ✅ Tools
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ESLint — code linting (no autofix)
+- Prettier — formatting check
+- lint-staged — runs only on staged files
+- Husky — blocks commit on error
 
-## Expanding the ESLint configuration
+### 🔁 Auto-check on commit
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+No manual steps required:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```sh
+git add .
+git commit -m “…”
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+If errors exist, commit will be blocked.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+### 🔍 Manual check (optional)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+```sh
+pnpm check
 ```
+
+Runs full-project:
+
+- `eslint .`
+- `prettier --check .`
+
+### 🛠 Fix issues
+
+```sh
+pnpm format
+```
+
+Runs: `prettier --write .`  
+Fix ESLint errors manually.

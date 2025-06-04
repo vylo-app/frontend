@@ -14,6 +14,7 @@ const ignores = [
   '.env.development.local',
   '.env.test.local',
   '.env.production.local',
+  'routeTree.gen.ts',
 ];
 
 export default defineConfig([

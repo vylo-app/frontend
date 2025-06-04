@@ -16,3 +16,6 @@ public/*
 # Optional: Git/IDE/system files
 .DS_Store
 *.log
+
+# TanStack
+routeTree.gen.ts

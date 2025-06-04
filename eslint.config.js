@@ -9,7 +9,10 @@ export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node, // Only for node engines (V8 and etc) @kusainovv
+      },
     },
   },
   tseslint.configs.recommended,

@@ -6,7 +6,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig } from 'eslint/config';
 
 const ignores = [
-  'dist/',
+  'dist',
   'node_modules/',
   '.cache/',
   '.env',
@@ -19,9 +19,9 @@ const ignores = [
 
 export default defineConfig([
   js.configs.recommended,
+  { ignores },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    ignores,
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -33,7 +33,6 @@ export default defineConfig([
   pluginReact.configs.flat.recommended,
   {
     files: ['**/*.{js,ts,jsx,tsx}'],
-    ignores,
     plugins: {
       'unused-imports': unusedImports,
     },

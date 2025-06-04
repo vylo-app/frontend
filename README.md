@@ -1,41 +1,93 @@
-## 🧼 Code Quality (ESLint + Prettier + Husky)
+## Launching the Telegram Bot
 
-This project uses pre-commit hooks to enforce code quality.
+This section explains how to start your Telegram WebApp bot and expose the frontend via Cloudflare Tunnel.
 
-### ✅ Tools
+### 1. Set up `.env`
 
-- ESLint — code linting (no autofix)
-- Prettier — formatting check
-- lint-staged — runs only on staged files
-- Husky — blocks commit on error
+Create a file named `.env` in the project root with:
 
-### 🔁 Auto-check on commit
-
-No manual steps required:
-
-```sh
-git add .
-git commit -m “…”
+```env
+BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
 ```
 
-If errors exist, commit will be blocked.
+### 2. Run the bot + tunnel
 
-### 🔍 Manual check (optional)
-
-```sh
-pnpm check
-```
-
-Runs full-project:
-
-- `eslint .`
-- `prettier --check .`
-
-### 🛠 Fix issues
+In your project root, run:
 
 ```sh
-pnpm format
+make bot
 ```
 
-Runs: `prettier --write .`  
-Fix ESLint errors manually.
+That will:
+
+* Start a Cloudflare Tunnel to `http://localhost:5173`
+* Wait until the tunnel URL appears (e.g. `https://abc-xyz.trycloudflare.com`)
+* Extract:
+
+  * `PUBLIC_URL` (full tunnel URL)
+  * `ALLOWED_HOST` (domain without `https://`)
+* Launch the Telegram bot with `PUBLIC_URL` in its env.
+
+#### Sample output:
+
+```sh
+✅ Tunnel URL: https://abc-xyz.trycloudflare.com
+🌍 Allowed Host: abc-xyz.trycloudflare.com
+```
+
+### 3. Start the frontend
+
+Open a new terminal (keep the bot running). Use the printed `ALLOWED_HOST` to start Vite:
+
+```sh
+ALLOWED_HOST=abc-xyz.trycloudflare.com pnpm dev
+```
+
+This ensures Vite’s server accepts requests from the tunnel domain.
+
+### 4. Open the bot in Telegram
+
+* In Telegram, send `/start` to your bot.
+* Click **Launch App**. It opens the frontend inside Telegram’s WebView via the Cloudflare Tunnel.
+
+### 5. Stop the bot
+
+When done, run:
+
+```sh
+make kill_bot
+```
+
+This kills the bot process; tunnel closes automatically.
+
+---
+
+## Code Quality
+
+We enforce consistent style and prevent errors by running automated checks:
+
+* **On commit (Husky + lint-staged):**
+  See [`.husky/pre-commit`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.husky/pre-commit) and [`.husky/pre-push`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.husky/pre-push).
+
+* **On push (Husky pre-push hook):**
+  Details in [`.husky/pre-push`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.husky/pre-push).
+
+* **VS Code integration:**
+  Configuration in [`.vscode/settings.json`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.vscode/settings.json) to run formatting and linting on save.
+
+* **Continuous Integration (GitHub Actions):**
+  Workflow defined in [`.github/workflows/ci.yml`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.github/workflows/ci.yml) runs lint, format-check, and type-check on every PR to `main`.
+
+These automated checks keep the codebase clean and error-free with minimal manual steps.
+
+For code style rules, see [`.eslintrc.js`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/eslint.config.js) and [`.prettierrc`](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/.prettierrc).
+
+---
+
+[Makefile](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/Makefile) handles launching the bot and tunnel.
+
+[Telegram Bot Script](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/TelegramBot/make-bot.js) sends the WebApp button.
+
+[Vite Config](https://github.com/vylo-app/frontend-saas-bootstrap/blob/main/vite.config.ts) sets up `allowedHosts` based on environment.
+
+[Source Code](https://github.com/vylo-app/frontend-saas-bootstrap/tree/main/src) lives in `src/` for your React components.

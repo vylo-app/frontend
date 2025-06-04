@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      allowedHosts: env.ALLOWED_HOST === '*' ? '*' : [env.ALLOWED_HOST],
+      allowedHosts: env.ALLOWED_HOST === '*' ? true : [env.ALLOWED_HOST],
     },
   };
 });

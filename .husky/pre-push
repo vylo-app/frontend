@@ -1,7 +1,13 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "🔥 Husky Pre-Push is working"
+echo "🔥 Running pre-push checks..."
 
-pnpm check
-pnpm build
+# Run build and capture exit code
+pnpm check || exit 1
+pnpm build || {
+  echo "❌ Build failed. Push aborted."
+  exit 1
+}
+
+echo "✅ Pre-push passed. Proceeding with git push."

@@ -22,3 +22,6 @@ bot:
 
 kill_bot:
 	pkill -f make-bot.js || true
+
+pull_types_from_npm:
+	pnpm update @vylo-app/shared-contract

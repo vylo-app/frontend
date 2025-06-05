@@ -10,7 +10,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The Token for private npm
+      NPM_GH_PAT: ${{ secrets.NPM_GH_PAT }} # The Token for private npm
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,7 +39,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_GH_PAT: ${{ secrets.NPM_GH_PAT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

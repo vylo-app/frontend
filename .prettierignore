@@ -19,3 +19,6 @@ public/*
 
 # TanStack
 routeTree.gen.ts
+
+# Shared Contract
+.npmrc

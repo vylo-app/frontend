@@ -1,3 +1,29 @@
+## GitHub Packages / `.npmrc` Setup
+
+### `.npmrc` already exists with:
+
+  ```ini
+  @vylo-app:registry=https://npm.pkg.github.com
+  //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+  ```
+
+### Local Development
+
+- Ensure your `GITHUB_TOKEN` (Personal Access Token) has `read:packages` scope.
+- Run:
+
+     ```sh
+     pnpm install
+     ```
+
+* **Pull Shared Types**
+
+  ```makefile
+  pull_types_from_npm:
+      pnpm update @vylo-app/shared-contract --latest
+  ```
+
+
 ## Launching the Telegram Bot
 
 This section explains how to start your Telegram WebApp bot and expose the frontend via Cloudflare Tunnel.

@@ -9,7 +9,8 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The Token for private npm
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,6 +36,9 @@ jobs:
 
       - name: Type Check
         run: pnpm exec tsc --noEmit
+  build:
+    runs-on: ubuntu-latest
 
+    steps:
       - name: Run build
         run: pnpm run build

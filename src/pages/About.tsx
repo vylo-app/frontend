@@ -1,3 +1,9 @@
+import { ProtectedRoute } from '@/components/ProtectedRoute';
+
 export const About = () => {
-  return <div>About</div>;
+  return (
+    <ProtectedRoute>
+      <div>About</div>
+    </ProtectedRoute>
+  );
 };

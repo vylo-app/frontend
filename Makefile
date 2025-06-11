@@ -24,4 +24,5 @@ kill_bot:
 	pkill -f make-bot.js || true
 
 pull_types_from_npm:
-	pnpm update @vylo-app/shared-contract
+	@echo "🔄 Updating @vylo-app/shared-contract..."
+	NPM_GH_PAT=$(NPM_GH_PAT) pnpm update @vylo-app/shared-contract

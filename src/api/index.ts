@@ -2,19 +2,12 @@ import axios from 'axios';
 import { LoginDto } from '@vylo-app/shared-contract';
 
 export const api = axios.create({
-  baseURL: import.meta.env.BACKEND_API_URL,
-  withCredentials: true, // required for sending cookies (like refresh token)
+  baseURL: import.meta.env.VITE_BACKEND_API_URL,
+  withCredentials: true,
 });
 
-// Optional: Inject access token if needed
-// api.interceptors.request.use(config => {
-//   const token = localStorage.getItem('access_token');
-//   if (token) config.headers.Authorization = `Bearer ${token}`;
-//   return config;
-// });
-
-export const login = async (dto: LoginDto) => {
-  const res = await api.post('/auth/login', dto);
+export const login = async (data: LoginDto) => {
+  const res = await api.post('/api/auth/login', data, { withCredentials: true });
   return res.data;
 };
 
@@ -23,6 +16,6 @@ export const logout = async () => {
 };
 
 export const refresh = async () => {
-  const res = await api.post('/auth/refresh');
+  const res = await api.post('/api/auth/refresh');
   return res.data;
 };

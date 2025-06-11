@@ -1,4 +1,4 @@
-import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { LoginPage } from '@/pages/Login';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/login')({
@@ -7,8 +7,8 @@ export const Route = createFileRoute('/login')({
 
 function Login() {
   return (
-    <ProtectedRoute>
-      <div className="p-2">Hello from Login!</div>
-    </ProtectedRoute>
+    <>
+      <LoginPage />
+    </>
   );
 }

@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { loginSchema, type LoginInput } from '@vylo-app/shared-contract';
-import { login } from '@/api';
+import { signInSchema, type SignInInput } from '@vylo-app/shared-contract';
+import { signIn } from '@/api';
 
-export function LoginPage() {
+export function SignInPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState<LoginInput>({ email: '', password: '' });
-  const [errors, setErrors] = useState<Partial<LoginInput>>({});
+  const [data, setData] = useState<SignInInput>({ email: '', password: '' });
+  const [errors, setErrors] = useState<Partial<SignInInput>>({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,7 @@ export function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = loginSchema.safeParse(data);
+    const parsed = signInSchema.safeParse(data);
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
       setErrors({
@@ -32,7 +32,7 @@ export function LoginPage() {
 
     setLoading(true);
     try {
-      await login(data);
+      await signIn(data);
       navigate({ to: '/' });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -44,7 +44,7 @@ export function LoginPage() {
 
   return (
     <div className="max-w-sm mx-auto mt-24 p-6 rounded-xl border shadow-md space-y-6 bg-white">
-      <h1 className="text-2xl font-bold text-center">Login</h1>
+      <h1 className="text-2xl font-bold text-center">Sign In</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <Label htmlFor="email">Email</Label>
@@ -61,6 +61,13 @@ export function LoginPage() {
           {loading ? 'Logging in...' : 'Login'}
         </Button>
       </form>
+
+      <p>
+        {"Doesn't have an account?"}{' '}
+        <Link className="underline" to="/sign-up">
+          Sign Up
+        </Link>
+      </p>
     </div>
   );
 }

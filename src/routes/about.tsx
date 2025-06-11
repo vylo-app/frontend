@@ -8,7 +8,7 @@ export const Route = createFileRoute('/about')({
     const accessToken = useAuthStore.getState().accessToken;
 
     if (accessToken === null) {
-      throw redirect({ to: '/login' });
+      throw redirect({ to: '/sign-in' });
     }
   },
 });

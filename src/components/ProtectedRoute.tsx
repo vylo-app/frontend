@@ -10,6 +10,6 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { accessToken, isLoading } = useAuthStore();
   if (isLoading) return <div>Loading...</div>; // or a spinner
 
-  if (accessToken === null) return <Navigate to="/login" />;
+  if (accessToken === null) return <Navigate to="/sign-in" />;
   return <>{children}</>;
 };

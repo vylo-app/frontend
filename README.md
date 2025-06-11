@@ -18,10 +18,38 @@
 
 * **Pull Shared Types**
 
-  ```makefile
-  pull_types_from_npm:
-      pnpm update @vylo-app/shared-contract --latest
-  ```
+ Pull Codegen from Private GitHub NPM Package
+
+.npmrc
+```
+@vylo-app:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NPM_GH_PAT}
+```
+
+Environment Variable
+
+Set the GitHub token before running pnpm:
+```
+NPM_GH_PAT=ghp_XXXX pnpm install
+```
+
+package.json
+
+Add dependency:
+
+```
+"@vylo-app/shared-contract": "1.0.0"
+```
+
+Pull Codegen
+
+```
+NPM_GH_PAT=ghp_XXXX pnpm update
+```
+
+Notes
+	•	No CLI login
+	•	Token must have read:packages scope
 
 
 ## Launching the Telegram Bot

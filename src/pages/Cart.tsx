@@ -29,7 +29,7 @@ export function CartPage() {
   const fetchCart = async () => {
     try {
       const res = await getCart();
-      setOrders(res.data || []);
+      setOrders(res || []);
     } catch {
       setError('Failed to load cart');
     } finally {

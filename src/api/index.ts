@@ -76,3 +76,8 @@ export const getCartCount = async (): Promise<number> => {
   const latestOrder = res.data?.[0];
   return latestOrder?.items?.length || 0;
 };
+
+export const addToCart = async (productId: string): Promise<void> => {
+  const res = await api.post(`/api/order-items/${productId}`);
+  return res.data;
+};

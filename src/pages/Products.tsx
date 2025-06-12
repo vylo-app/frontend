@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { type Product } from '@vylo-app/shared-contract';
 import { fetchProducts } from '@/api';
 import { BottomNavigation } from '@/components/BottomNavigation';
+import { Link } from '@tanstack/react-router';
 
 export function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,10 +31,15 @@ export function ProductsPage() {
       <div className="max-w-2xl mx-auto mt-10 space-y-4">
         <h1 className="text-3xl font-bold">Products</h1>
         {products.map((product) => (
-          <div key={product.id} className="p-4 border rounded-xl shadow-sm">
+          <Link
+            to="/products/$productId"
+            params={{ productId: product.id }}
+            key={product.id}
+            className="block p-4 border rounded-xl shadow-sm hover:bg-gray-50 transition"
+          >
             <h2 className="text-xl font-semibold">{product.name}</h2>
             <p className="text-gray-600">{product.description}</p>
-          </div>
+          </Link>
         ))}
       </div>
 

@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { to: '/', label: 'Home', icon: HomeIcon },
-  { to: '/search', label: 'Search', icon: MagnifyingGlassIcon },
-  { to: '/publish', label: 'Publish', icon: PlusIcon },
+  { to: '/products', label: 'Search', icon: MagnifyingGlassIcon },
+  { to: '/products/new', label: 'Publish', icon: PlusIcon },
   { to: '/profile', label: 'Profile', icon: PersonIcon },
 ];
 

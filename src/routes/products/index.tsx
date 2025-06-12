@@ -1,8 +1,8 @@
-import { HomePage } from '@/pages/Home';
+import { ProductsPage } from '@/pages/Products';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/')({
-  component: Home,
+export const Route = createFileRoute('/products/')({
+  component: Products,
   beforeLoad: async () => {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -12,6 +12,10 @@ export const Route = createFileRoute('/')({
   },
 });
 
-function Home() {
-  return <HomePage />;
+function Products() {
+  return (
+    <>
+      <ProductsPage />
+    </>
+  );
 }

@@ -65,3 +65,14 @@ export const updateProfile = async (data: UpdateUserDto): Promise<User> => {
   const res = await api.patch('/api/users/me', data);
   return res.data;
 };
+
+export const getCart = async () => {
+  const res = await api.get('/api/orders');
+  return res.data;
+};
+
+export const getCartCount = async (): Promise<number> => {
+  const res = await api.get('/api/orders');
+  const latestOrder = res.data?.[0];
+  return latestOrder?.items?.length || 0;
+};

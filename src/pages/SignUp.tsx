@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { signUpSchema, type SignUpInput } from '@vylo-app/shared-contract';
 import { signUp } from '@/api';
+import { useAuthStore } from '@/store/auth';
 
 export function SignUpPage() {
   const navigate = useNavigate();
@@ -14,6 +15,9 @@ export function SignUpPage() {
     firstName: '',
     lastName: '',
   });
+
+  const { setAccessToken } = useAuthStore();
+
   const [errors, setErrors] = useState<Partial<SignUpInput>>({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -39,7 +43,9 @@ export function SignUpPage() {
 
     setLoading(true);
     try {
-      await signUp(data);
+      const { accessToken } = await signUp(data);
+      localStorage.setItem('accessToken', accessToken);
+      setAccessToken(accessToken);
       navigate({ to: '/' });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

@@ -1,11 +1,10 @@
-import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { useAuthStore } from '@/store/auth';
+import { AboutPage } from '@/pages/About';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/about')({
   component: About,
   beforeLoad: async () => {
-    const accessToken = useAuthStore.getState().accessToken;
+    const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken === null) {
       throw redirect({ to: '/sign-in' });
@@ -14,9 +13,5 @@ export const Route = createFileRoute('/about')({
 });
 
 function About() {
-  return (
-    <ProtectedRoute>
-      <div className="p-2">Hello from About!</div>
-    </ProtectedRoute>
-  );
+  return <AboutPage />;
 }

@@ -1,13 +1,21 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { ProductsPage } from '@/pages/Products';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
-  component: Index,
+  component: Home,
+  beforeLoad: async () => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken === null) {
+      throw redirect({ to: '/sign-in' });
+    }
+  },
 });
 
-function Index() {
+function Home() {
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
-    </div>
+    <>
+      <ProductsPage />
+    </>
   );
 }

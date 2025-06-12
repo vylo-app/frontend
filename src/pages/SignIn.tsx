@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { signInSchema, type SignInInput } from '@vylo-app/shared-contract';
 import { signIn } from '@/api';
+import { useAuthStore } from '@/store/auth';
 
 export function SignInPage() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ export function SignInPage() {
   const [errors, setErrors] = useState<Partial<SignInInput>>({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const { setAccessToken } = useAuthStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -32,11 +35,13 @@ export function SignInPage() {
 
     setLoading(true);
     try {
-      await signIn(data);
+      const { accessToken } = await signIn(data);
+      localStorage.setItem('accessToken', accessToken);
+      setAccessToken(accessToken);
       navigate({ to: '/' });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setApiError(err.response.data.message);
+      setApiError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }

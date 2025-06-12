@@ -1,9 +1,18 @@
 import axios from 'axios';
-import { SignInDto, SignUpDto } from '@vylo-app/shared-contract';
+import { CreateProductDto, SignInDto, SignUpDto, type Product } from '@vylo-app/shared-contract';
+import { useAuthStore } from '@/store/auth';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_API_URL,
   withCredentials: true,
+});
+
+api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().accessToken;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export const signIn = async (data: SignInDto) => {
@@ -22,5 +31,20 @@ export const refresh = async () => {
 
 export const signUp = async (data: SignUpDto) => {
   const res = await api.post('/api/auth/sign-up', data);
+  return res.data;
+};
+
+export const fetchProducts = async (): Promise<Product[]> => {
+  const res = await api.get('/api/products');
+  return res.data;
+};
+
+export const fetchProductById = async (id: string): Promise<Product> => {
+  const res = await api.get(`/api/products/${id}`);
+  return res.data;
+};
+
+export const createProduct = async (data: CreateProductDto): Promise<Product> => {
+  const res = await api.post('/api/products', data);
   return res.data;
 };

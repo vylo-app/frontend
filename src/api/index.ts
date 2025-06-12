@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { CreateProductDto, SignInDto, SignUpDto, type Product } from '@vylo-app/shared-contract';
+import {
+  CreateProductDto,
+  SignInDto,
+  SignUpDto,
+  UpdateUserDto,
+  type Product,
+  type User,
+} from '@vylo-app/shared-contract';
 import { useAuthStore } from '@/store/auth';
 
 export const api = axios.create({
@@ -46,5 +53,15 @@ export const fetchProductById = async (id: string): Promise<Product> => {
 
 export const createProduct = async (data: CreateProductDto): Promise<Product> => {
   const res = await api.post('/api/products', data);
+  return res.data;
+};
+
+export const getProfile = async (): Promise<User> => {
+  const res = await api.get('/api/users/me');
+  return res.data;
+};
+
+export const updateProfile = async (data: UpdateUserDto): Promise<User> => {
+  const res = await api.patch('/api/users/me', data);
   return res.data;
 };

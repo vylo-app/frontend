@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@radix-ui/react-icons':
+        specifier: ^1.3.2
+        version: 1.3.2(react@19.1.0)
       '@radix-ui/react-label':
         specifier: ^2.1.7
         version: 2.1.7(@types/react-dom@19.1.6(@types/react@19.1.7))(@types/react@19.1.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -24,8 +27,8 @@ importers:
         specifier: ^1.121.0
         version: 1.121.0(@tanstack/react-router@1.121.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.121.0)(csstype@3.1.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tiny-invariant@1.3.3)
       '@vylo-app/shared-contract':
-        specifier: ^0.1.15
-        version: 0.1.15(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
+        specifier: ^0.1.16
+        version: 0.1.16(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -561,6 +564,11 @@ packages:
       '@types/react':
         optional: true
 
+  '@radix-ui/react-icons@1.3.2':
+    resolution: {integrity: sha512-fyQIhGDhzfc9pK2kH6Pl9c4BDJGfMkPqkyIgYDthyNYoNg3wVhoJMMh19WS4Up/1KMPFVpNsT2q3WmXn2N1m6g==}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x || ^19.0.0 || ^19.0.0-rc
+
   '@radix-ui/react-label@2.1.7':
     resolution: {integrity: sha512-YT1GqPSL8kJn20djelMX7/cTRp/Y9w5IZHvfxQTVHrOqa2yMl7i/UfMqKRU5V7mEyKTrUVgJXhNQPVCG8PBLoQ==}
     peerDependencies:
@@ -994,8 +1002,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
 
-  '@vylo-app/shared-contract@0.1.15':
-    resolution: {integrity: sha512-9WnNvEg8r3j8iJuIpGNo5WnROAvNDkpbEuxVATl5wVUC0IuHFHphbhbB4pD+59GnOZXI509BCw5rzAfQzqUAmg==, tarball: https://npm.pkg.github.com/download/@vylo-app/shared-contract/0.1.15/957cdff41135b0ed55637f163d999f712d23f01f}
+  '@vylo-app/shared-contract@0.1.16':
+    resolution: {integrity: sha512-sQj+O7FnkiouiJP9NCboAerQHo9CBoygn/cVnxPXYF2Wovw61TnrcNUPgtxwS7o1PFq1Mb0TGMVV/KZJrPWEhQ==, tarball: https://npm.pkg.github.com/download/@vylo-app/shared-contract/0.1.16/fc4eda592689cc0b08d7b71901f26fd3ce3b0a3f}
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -3151,6 +3159,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.7
 
+  '@radix-ui/react-icons@1.3.2(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+
   '@radix-ui/react-label@2.1.7(@types/react-dom@19.1.6(@types/react@19.1.7))(@types/react@19.1.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.6(@types/react@19.1.7))(@types/react@19.1.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3576,7 +3588,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vylo-app/shared-contract@0.1.15(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+  '@vylo-app/shared-contract@0.1.16(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
     dependencies:
       '@nestjs/mapped-types': 2.1.0(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-validator@0.14.2)(reflect-metadata@0.2.2)
       class-validator: 0.14.2

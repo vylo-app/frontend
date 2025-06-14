@@ -1,21 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from '@tanstack/react-router';
-import { addToCart, fetchProductById } from '@/api';
+import { addToOrder, fetchProductById, removeFromOrder } from '@/api';
 import { Button } from '@/components/ui/button';
 import { BottomNavigation } from '@/components/BottomNavigation';
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: {
-    price: number;
-  } | null;
-}
+import { type Product, type ProductWithMeta } from '@vylo-app/shared-contract';
+import { Header } from '@/components/Header';
 
 export function ProductPage() {
-  const { productId } = useParams('/products/$productId');
-  const [product, setProduct] = useState<Product | null>(null);
+  const { productId } = useParams({ from: '/products/$productId' });
+  const [product, setProduct] = useState<(Product & ProductWithMeta) | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [adding, setAdding] = useState(false);
@@ -35,14 +28,19 @@ export function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  const handleAddToCart = async () => {
+  const handleToggleCart = async () => {
     if (!product) return;
     setAdding(true);
     try {
-      await addToCart(product.id);
-      alert('Added to cart');
+      if (product.isInCart) {
+        await removeFromOrder(product.id);
+        setProduct({ ...product, isInCart: false });
+      } else {
+        await addToOrder(product.id);
+        setProduct({ ...product, isInCart: true });
+      }
     } catch {
-      alert('Failed to add to cart');
+      alert('Failed to update cart');
     } finally {
       setAdding(false);
     }
@@ -54,15 +52,27 @@ export function ProductPage() {
 
   return (
     <>
+      <Header />
       <div className="max-w-md mx-auto mt-20 px-4">
         <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
         <p className="text-gray-600 mb-4">{product.description}</p>
         <p className="text-lg font-semibold mb-6">
-          Price: ${product.price?.price.toFixed(2) || '0.00'}
+          {/* Price: ${product.price?.price.toFixed(2) || '0.00'} */}
         </p>
 
-        <Button onClick={handleAddToCart} disabled={adding}>
-          {adding ? 'Adding...' : 'Add to Cart'}
+        <Button
+          onClick={handleToggleCart}
+          disabled={adding}
+          className="cursor-pointer"
+          variant={product?.isInCart ? 'outline' : 'default'}
+        >
+          {adding
+            ? product?.isInCart
+              ? 'Removing...'
+              : 'Adding...'
+            : product?.isInCart
+              ? 'Remove from Cart'
+              : 'Add to Cart'}
         </Button>
       </div>
 

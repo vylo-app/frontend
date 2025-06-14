@@ -1,34 +1,18 @@
 import { useEffect, useState } from 'react';
-import { api, getCart } from '@/api';
+import { getOrders, removeFromOrder } from '@/api';
 import { Button } from '@/components/ui/button';
 import { BottomNavigation } from '@/components/BottomNavigation';
-
-interface CartItem {
-  id: string;
-  product: {
-    name: string;
-    description: string;
-    price: {
-      price: number;
-    } | null;
-  };
-}
-
-interface Order {
-  id: string;
-  amount: number;
-  totalPrice: number;
-  items: CartItem[];
-}
+import { type Order } from '@vylo-app/shared-contract';
 
 export function CartPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [removingItemId, setRemovingItemId] = useState<string | null>(null); // 👈
 
   const fetchCart = async () => {
     try {
-      const res = await getCart();
+      const res = await getOrders();
       setOrders(res || []);
     } catch {
       setError('Failed to load cart');
@@ -38,11 +22,14 @@ export function CartPage() {
   };
 
   const removeItem = async (itemId: string) => {
+    setRemovingItemId(itemId);
     try {
-      await api.delete(`/order-items/${itemId}`);
+      await removeFromOrder(itemId);
       await fetchCart();
     } catch {
       console.error('Failed to remove item');
+    } finally {
+      setRemovingItemId(null);
     }
   };
 
@@ -70,15 +57,16 @@ export function CartPage() {
                     <h3 className="font-semibold">{item.product.name}</h3>
                     <p className="text-sm text-gray-600">{item.product.description}</p>
                     <p className="text-sm mt-1">
-                      Price: ${item.product.price?.price.toFixed(2) || '0.00'}
+                      {/* Price: ${item.product.price?.price.toFixed(2) || '0.00'} */}
                     </p>
                     <Button
                       variant="destructive"
                       size="sm"
-                      className="mt-2"
-                      onClick={() => removeItem(item.id)}
+                      className="mt-2 cursor-pointer"
+                      onClick={() => removeItem(item.product.id)}
+                      disabled={removingItemId === item.id} // 👈
                     >
-                      Remove
+                      {removingItemId === item.id ? 'Removing...' : 'Remove'}
                     </Button>
                   </div>
                 ))}

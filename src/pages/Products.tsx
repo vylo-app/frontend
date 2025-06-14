@@ -3,6 +3,7 @@ import { type Product } from '@vylo-app/shared-contract';
 import { fetchProducts } from '@/api';
 import { BottomNavigation } from '@/components/BottomNavigation';
 import { Link } from '@tanstack/react-router';
+import { Header } from '@/components/Header';
 
 export function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -28,6 +29,8 @@ export function ProductsPage() {
 
   return (
     <>
+      <Header />
+
       <div className="max-w-2xl mx-auto mt-10 space-y-4">
         <h1 className="text-3xl font-bold">Products</h1>
         {products.map((product) => (

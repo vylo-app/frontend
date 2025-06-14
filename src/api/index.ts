@@ -66,18 +66,17 @@ export const updateProfile = async (data: UpdateUserDto): Promise<User> => {
   return res.data;
 };
 
-export const getCart = async () => {
+export const getOrders = async () => {
   const res = await api.get('/api/orders');
   return res.data;
 };
 
-export const getCartCount = async (): Promise<number> => {
-  const res = await api.get('/api/orders');
-  const latestOrder = res.data?.[0];
-  return latestOrder?.items?.length || 0;
+export const addToOrder = async (productId: string): Promise<void> => {
+  const res = await api.post(`/api/order-items/${productId}`);
+  return res.data;
 };
 
-export const addToCart = async (productId: string): Promise<void> => {
-  const res = await api.post(`/api/order-items/${productId}`);
+export const removeFromOrder = async (productId: string): Promise<void> => {
+  const res = await api.delete(`/api/order-items/${productId}`);
   return res.data;
 };

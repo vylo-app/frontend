@@ -33,6 +33,9 @@ export function ProductsPage() {
 
       <div className="max-w-2xl mx-auto mt-10 space-y-4">
         <h1 className="text-3xl font-bold">Products</h1>
+
+        {products.length === 0 ? <i>{"There're no products"}</i> : null}
+
         {products.map((product) => (
           <Link
             to="/products/$productId"

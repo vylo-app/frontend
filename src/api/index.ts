@@ -6,6 +6,9 @@ import {
   UpdateUserDto,
   type Product,
   type User,
+  type CreateProductReviewDto,
+  type ProductReview,
+  type ProductWithMeta,
 } from '@vylo-app/shared-contract';
 import { useAuthStore } from '@/store/auth';
 
@@ -46,7 +49,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
   return res.data;
 };
 
-export const fetchProductById = async (id: string): Promise<Product> => {
+export const fetchProductById = async (id: string): Promise<Product & ProductWithMeta> => {
   const res = await api.get(`/api/products/${id}`);
   return res.data;
 };
@@ -79,4 +82,18 @@ export const addToOrder = async (productId: string): Promise<void> => {
 export const removeFromOrder = async (productId: string): Promise<void> => {
   const res = await api.delete(`/api/order-items/${productId}`);
   return res.data;
+};
+
+export const getProductReviews = async (productId: string): Promise<ProductReview[]> => {
+  const res = await api.get(`/api/product-reviews/${productId}`);
+  return res.data;
+};
+
+export const createProductReview = async (data: CreateProductReviewDto): Promise<ProductReview> => {
+  const res = await api.post('/api/product-reviews', data);
+  return res.data;
+};
+
+export const deleteProductReview = async (reviewId: string): Promise<void> => {
+  await api.delete(`/api/product-reviews/${reviewId}`);
 };

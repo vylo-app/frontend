@@ -1,9 +1,13 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm use > /dev/null
+
 echo "🔥 Running pre-push checks..."
 
-# Run build and capture exit code
 pnpm check || exit 1
 pnpm build || {
   echo "❌ Build failed. Push aborted."

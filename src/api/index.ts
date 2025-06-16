@@ -97,3 +97,23 @@ export const createProductReview = async (data: CreateProductReviewDto): Promise
 export const deleteProductReview = async (reviewId: string): Promise<void> => {
   await api.delete(`/api/product-reviews/${reviewId}`);
 };
+
+export const getFavorites = async () => {
+  const res = await api.get('/api/favorites');
+  return res.data;
+};
+
+export const addFavorite = async (productId: string) => {
+  const res = await api.post(`/api/favorites/${productId}`);
+  return res.data;
+};
+
+export const removeFavorite = async (productId: string) => {
+  const res = await api.delete(`/api/favorites/${productId}`);
+  return res.data;
+};
+
+export const unfavoriteProduct = async (productId: string): Promise<void> => {
+  const res = await api.delete(`/api/favorites/${productId}`);
+  return res.data;
+};

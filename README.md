@@ -1,3 +1,11 @@
+## Setup
+
+```bash
+nvm install
+nvm use
+pnpm install
+```
+
 ## GitHub Packages / `.npmrc` Setup
 
 ### `.npmrc` already exists with:

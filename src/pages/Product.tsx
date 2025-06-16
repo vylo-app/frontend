@@ -25,8 +25,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-
-import { EllipsisVertical } from 'lucide-react'; // Optional icon
+import { EllipsisVertical } from 'lucide-react';
+import { useFavorites } from '@/hooks/useFavorites';
 
 export function ProductPage() {
   const { productId } = useParams({ from: '/products/$productId' });
@@ -37,12 +37,32 @@ export function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
   const [deletingReviewId, setDeletingReviewId] = useState<string | null>(null);
+  const [canFavorited, setCanFavorited] = useState<boolean>(false);
+
+  const { add, remove, updatingId } = useFavorites();
+
+  const handleToggleFavorite = async () => {
+    if (!product) return;
+
+    try {
+      if (canFavorited) {
+        await add(product.id);
+        setCanFavorited(false);
+      } else {
+        await remove(product.id);
+        setCanFavorited(true);
+      }
+    } catch {
+      alert('Failed to update favorite');
+    }
+  };
 
   useEffect(() => {
     const fetch = async () => {
       const productRes = await fetchProductById(productId);
       const reviewRes = await getProductReviews(productId);
       setProduct(productRes);
+      setCanFavorited(Boolean(productRes.canFavorited));
       setReviews(reviewRes);
       setLoading(false);
     };
@@ -109,7 +129,6 @@ export function ProductPage() {
       <div className="max-w-md mx-auto mt-20 px-4">
         <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
         <p className="text-gray-600 mb-4">{product.description}</p>
-
         <Button
           onClick={handleToggleCart}
           disabled={adding}
@@ -123,6 +142,13 @@ export function ProductPage() {
             : product?.isInCart
               ? 'Remove from Cart'
               : 'Add to Cart'}
+        </Button>{' '}
+        <Button onClick={handleToggleFavorite} disabled={updatingId === product?.id}>
+          {updatingId === product?.id
+            ? 'Updating...'
+            : canFavorited
+              ? 'Add to Favorites'
+              : 'Remove from Favorites'}
         </Button>
       </div>
 

@@ -30,8 +30,8 @@ importers:
         specifier: ^1.121.0
         version: 1.121.0(@tanstack/react-router@1.121.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.121.0)(csstype@3.1.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tiny-invariant@1.3.3)
       '@vylo-app/shared-contract':
-        specifier: ^0.1.24
-        version: 0.1.24(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
+        specifier: ^0.1.25
+        version: 0.1.25(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -1255,8 +1255,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
 
-  '@vylo-app/shared-contract@0.1.24':
-    resolution: {integrity: sha512-5sP5q8WJ3G2Xv+m8WxNkw5GIEaKFnNgFqm1tqMPhJJNXivGlUm1pbW/bbmRTyXCla9vCBAl7pj52GPc0uvyPuQ==, tarball: https://npm.pkg.github.com/download/@vylo-app/shared-contract/0.1.24/4d1b222e1fd821ce66745f3bde927084e7811885}
+  '@vylo-app/shared-contract@0.1.25':
+    resolution: {integrity: sha512-tRS2pOJR2Ui65OttkxgyDC177MzKmtHcVqbicKQgw4/8YxapV4EfsLwPNxrSIfD6V1BMiVhmZ7tcU4pqiI98jw==, tarball: https://npm.pkg.github.com/download/@vylo-app/shared-contract/0.1.25/09953dac9ce88bd047adf45bf8eb676571083c1e}
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -4137,7 +4137,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vylo-app/shared-contract@0.1.24(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+  '@vylo-app/shared-contract@0.1.25(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
     dependencies:
       '@nestjs/mapped-types': 2.1.0(@nestjs/common@11.1.3(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-validator@0.14.2)(reflect-metadata@0.2.2)
       class-validator: 0.14.2

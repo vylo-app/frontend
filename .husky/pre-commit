@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/.env"
 
 echo "🔥 Husky Pre-Commit is working"
-pnpm lint-staged
+npx lint-staged
